@@ -1,58 +1,56 @@
 # CSC 246 — Operating Systems
 
-Coursework from **NC State University, Fall 2022** (`@date` headers run 31 Aug – 17 Nov 2022).
-C99 and Java. Published later, so commit dates are the publication date, not when the work was done.
+**NC State, Fall 2022.** Seven assignments that solve the *same problem* with a different
+concurrency primitive each time. By the end you know exactly what each one is for.
 
-Seven assignments that keep solving the same problem with a different concurrency primitive each
-time, which turns out to be the fastest way to learn what each one is actually for.
+> Commit dates are the publication date; the work is from Fall 2022.
 
-## The assignments
+## Max-subarray, five ways
 
-### hw0 — a shell, without the standard library
-`stash.c` (200 lines) parses a command line, `fork`/`execvp`s it, wires up redirection, and
-implements `cd` and `exit` as builtins. The constraint was no libc string handling, so
-`customStrLen` and a hand-rolled `atoi` are in there. `exclude.c` filters a line out of a stream
-using only raw `read`/`write` syscalls — no stdio, no buffering you didn't write.
+The running joke of the semester. One problem, five different machines underneath it:
 
-### hw1 — processes, pipes, and message queues
-`maxsum.c` splits maximum-contiguous-subarray across N worker processes with `fork` and `pipe`,
-reducing results in the parent. `server.c`/`client.c` run a Lights Out puzzle over **POSIX message
-queues**, with a `SIGINT` handler that flips a `volatile sig_atomic_t` instead of doing real work
-in a signal context.
+| # | Primitive | File |
+|---|---|---|
+| 1 | `fork` + `pipe` across N processes | `hw1/maxsum.c` |
+| 2 | Java threads | `hw2/Maxsum.java` |
+| 3 | pthreads + POSIX semaphores | `hw3/maxsum-sem.c` |
+| 4 | Monitors — mutex + condition variables | `hw4/hall.c` |
+| 5 | **CUDA** | `hw5/maxsum.cu` |
 
-### hw2 — System V shared memory
-The same puzzle again on `sys/shm.h`, with undo and report commands. `Maxsum.java` is the Java
-threads counterpart, for contrast.
+The CUDA file still has my timing note in the header: **1.668s on an RTX 2070.**
 
-### hw3 — semaphores
-`maxsum-sem.c`: pthreads plus POSIX semaphores in an explicit producer/consumer arrangement.
+## The rest of the greatest hits
 
-### hw4 — monitors
-`hall.c` is a monitor — a mutex guarding occupancy state, with condition variables for the waiting
-— exercised by ten driver scenarios. The Java side (`Global`, `Kitchen`, `Ordered`, `TakeAll`) is
-four different strategies for avoiding deadlock in a dining-philosophers-shaped problem.
+🐚 **A shell, with no standard library** — `hw0/stash.c`. Parses, forks, execs, redirects, has
+`cd` and `exit` builtins. No libc string functions allowed, so `customStrLen` and a hand-rolled
+`atoi` are in there. 200 lines.
 
-### hw5 — a threaded server, and the same problem on a GPU
-`scrabbleServer.c` (586 lines) is a multithreaded TCP Scrabble server: BSD sockets, a thread per
-client, shared board state. `maxsum.cu` is the CUDA port — the header records 1.668s real time
-on an RTX 2070.
+📬 **The same puzzle over three IPC mechanisms** — POSIX message queues (`hw1`), System V shared
+memory (`hw2`), then sockets. Signal handling done properly: `SIGINT` flips a
+`volatile sig_atomic_t` instead of doing real work inside the handler.
 
-### hw6 — authentication
-`Server.java` and `Client.java` do RSA public-key challenge/response against a `passwd.txt` of
-user → public key records, using `KeyFactory` and `X509EncodedKeySpec`, then play scrabble scoring
-over the authenticated channel.
+🎯 **A multithreaded Scrabble server** — `hw5/scrabbleServer.c`, 586 lines. BSD sockets, a thread
+per client, shared board state. Clients view, place across/down, or quit.
 
-> The course's private-key fixtures are **not** included here. Generate your own keypair and add
-> the public half to `passwd.txt` to run hw6.
+🔐 **RSA challenge/response auth** — `hw6`. Server checks a `passwd.txt` of user → public key,
+issues a challenge, verifies the signed response, *then* lets you play.
 
-## Building
+## Running it
 
-There is no build system — that was the point of the course. Each program compiles directly:
+No build system — that was the point.
 
 ```bash
 gcc -Wall -std=c99 -pthread hw3/maxsum-sem.c -o maxsum-sem
 javac hw6/Server.java && java Server 8080
-nvcc hw5/maxsum.cu -o maxsum-cuda     # needs a CUDA toolchain
+nvcc hw5/maxsum.cu -o maxsum-cuda
 ```
 
-Verification is by `expected*.txt` fixtures rather than a test framework.
+Private-key fixtures are deliberately not in the repo — generate a keypair and add the public half
+to `passwd.txt` for hw6.
+
+---
+
+*More: [CSC 230](https://github.com/pbairoliya/csc230-c-software-tools) ·
+[CSC 474](https://github.com/pbairoliya/csc474-network-security) ·
+[CSC 484](https://github.com/pbairoliya/csc484-game-ai) ·
+[where it started](https://github.com/pbairoliya/first-code)*
