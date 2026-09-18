@@ -1,0 +1,12 @@
+Problem 1
+
+a) If you were to use the stat system call you can figure out the size of a file. This is done by creating a stat struct and then passing in a file name and the struct itself. For example: 
+struct stat temp; 
+stat(filename, &temp)
+From here to get the file of the size that is now in the temp struct. You can use the st_size field of temp, (which is present as a field in stat struct). This will provide you the size of the file that is being passed in through file name.
+
+b) A programmer can open a file such that the OS can utilize non-blocking interface and this way the programmer can ask the OS to send a signal to your process whenever the file becomes readable or writeable. This can be done by opening the certain file with the file status flag : O_ASYNC. The description under the man linux file states that this O_ASYNC tag enables signal-driven I/O and that is what we want in this certain scenario. 
+
+c) The system call method that can determine the number of time sit has been in the running state by using the getrusage() method. In the getrusage() method it returns a struct. The struct has 2 fields: ru_nvcsw and ru_nivcsw, which the first ru_nvcsw  tracks the voluntary context switches and ru_nivcsw tracks the involuntary context switches. You can take these two fields and add them together and add 1 to it as well to get the total number of times a process has been switched out of the running state. This is the case because any process has to be in the running state to be switched out the number of times it gets switched out must equal the amount of times the process was in the running state, plus the initial time it was in the running state before it was switched out, Hence the addition of 1. So in conclusion the total number times a process has been in the running state is = ru_nvcsw + ru_nivcsw +1. That is how you can use getrusage() to figure out the total number of times a process has been in the running state.
+
+d) A program can tell if mq_receive  returned from a signal rather than the arrival of a message. This is because mq_recieve(), when called returns the number of bytes received, this happens when there is an arrival of a message. But when mq_receives returns due to a signal, the system call method returns a -1 as a return value and this means that the system call was interrupted by the signal handler and not due to an arrival of a message,

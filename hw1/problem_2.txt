@@ -1,0 +1,43 @@
+ Problem 2
+
+a) The steps involved in a context switch between two different processes are:
+First an interrupt occurs, PC is pushed to stack, switches to kernel and there is a jump to interrupt handler.
+Second depending on the scheduling decision the other Process : P1 is ran instead.
+Third the copy of a PC is saved and other CPU registers for P0 (original process).
+Fourth Memory bounds are set for P1.
+Fifth The CPU registers are restored for P1.
+Sixth P1 PC is copied onto the stack.
+Lastly the process returns from interrupt.
+
+b)  The steps involved in a context switch between two threads in the same process are:
+First the execution state of the first thread that was currently running, T0 is saved.
+Then the scheduler and choses a thread to be selected for execution this will be the second thread in the process T1.
+Then then execution state of the new thread T1 is restored.
+The CPU registers are restored and returns to user mode.
+Finally control is passed to the new thread and returns from interrupt.
+
+c) All the possible interleaving of the execution of the statment in these two functions are:
+1  ABCD 
+2  ABDC
+3  ACBD 
+4  ACDB 
+5  ADBC 
+6  ADCB
+7  BACD
+8  BADC
+9  BCAD 
+10 BCDA 
+11 BDAC
+12 BDCA
+13 CABD 
+14 CADB 
+15 CBAD 
+16 CBDA 
+17 CDAB 
+18 CDBA
+19 DABC
+20 DACB
+21 DBAC 
+22 DBCA 
+23 DCAB 
+24 DCBA

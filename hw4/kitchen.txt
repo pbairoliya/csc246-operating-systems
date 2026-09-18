@@ -1,0 +1,14 @@
+Global Java: 
+    Total Dishes made: 329 Dishes
+    Least Dishes chef made was: 19 Dishes
+    Most Dishes chef made was: 37 Dishes
+
+Ordered Java:
+    Total Dishes made: 918 Dishes
+    Least Dishes chef made was: 36 Dishes
+    Most Dishes chef made was: 262 Dishes
+
+TakeAll Java:
+    Total Dishes made: 1031 Dishes
+    Least Dishes chef made was: 18 Dishes
+    Most Dishes chef made was: 267 Dishes

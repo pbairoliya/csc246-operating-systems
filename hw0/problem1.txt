@@ -1,0 +1,10 @@
+/**
+ * Pratik Bairoliya 200285633 pbairol
+ * CSC 246 OS Assignment 0
+*//
+
+    1)
+        a) If the file needs to be created, the third parameter in open() - mode_t flags are needed. These are provided by the programmer to show what permissions the newly created file has. That is what determines if you need 3 paremeters instead of two.
+        b) The way that the user or programmer can determine if read has reached the end of file is if the funciton read() will return a 0. However, if the function read() returns -1 that is how the programmer knows that it has encountered an eorrr.
+        c) The programmer that runs fork can know it failed if the return from the fork() command is -1. errrno is set to the value corresponding to the specific error caused fork to fail. This means that there was no succesful PID created for the child, nor the child was created.
+        d) The way you can tell which child process has terminated is by the wait() fucntion a,system call, returns the pid of the child that terminated. Hence if the termination was succesful the pid would be exactly that of the child that terminated.

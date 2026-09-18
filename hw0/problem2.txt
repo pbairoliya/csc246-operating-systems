@@ -1,0 +1,7 @@
+/**
+ * Pratik Bairoliya 200285633 pbairol
+ * CSC 246 OS Assignment 0
+*//
+
+2)  a) Temporal locality deals with when the system tries to access data it has already accessed recently. Hence like accessing the same value x over and over agian the system can utalize temporal locality. With spcaial locality the system accesses information surrounding the data it has recently feteched this is useful when using an array or list, because the data is right next to each other. In the following code snipped exhibits spacial locality as it is first accesing the data points of an array which are right next to each ohter and then printing it, this type of process ustalizies spaical locality.
+    b) Interupts are needed because it is a quick way to acess IO device needs and then the traps are also essential as they are Interupts that are caused by the CPU they help trap to the user if something like divide 0 happens it is genrally used for bad program behavior and is essnetial so the user doens do something that is incorrect hurting the comptuer itself. The aspects of system functionalites that are dependent on interupts and traps is the IO itself, all input and output functionalites of a system traps and interrupts are important aspect of it.

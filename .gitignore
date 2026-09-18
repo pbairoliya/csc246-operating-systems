@@ -1,0 +1,15 @@
+*.o
+*.class
+*.dSYM/
+.DS_Store
+# compiled binaries
+stash
+exclude
+maxsum
+maxsum-sem
+maxsum-cuda
+lightsout
+reset
+server
+client
+scrabbleServer

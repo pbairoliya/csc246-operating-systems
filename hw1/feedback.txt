@@ -1,0 +1,5 @@
+Your program's output wasn't close enough to what I was expecting.  It should 
+have a report from each child, followed by a 'done' message from the parent.
+
+When I run your program, I don't see the calls to fork and wait that I'd 
+expect.  You should have 3 calls to fork, and three calls to wait at the end.

@@ -1,0 +1,12 @@
+1) gabcdhefijkl yes
+  
+2) abcdefgjklhi no
+
+3) abcdefghijkl yes 
+  
+4) gjabchdiefkl no
+
+5) deagjbcfklhi no
+  
+6) jgdhiefkablc yes
+  
